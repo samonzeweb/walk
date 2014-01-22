@@ -1,5 +1,8 @@
 require "walk/version"
 
 module Walk
-  # Your code goes here...
+
+  def walk(root, topdown=true, followlinks=false)
+  end
+  
 end
