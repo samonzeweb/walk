@@ -1,17 +1,25 @@
-require "walk/version"
+require_relative "walk/version"
 
 module Walk
 
   CURRENT_DIR = '.'
   PARENT_DIR  = '..'
 
-  def self.walk(root, topdown=true, followlinks=false)
-    Enumerator.new do |enum|
-      inner_walk(enum, root, topdown=true, followlinks=false)
+  def self.walk(root, topdown=true, followlinks=false, &block)
+
+    if block_given?
+      inner_walk(root, topdown=true, followlinks=false, &block)
+    else
+      Enumerator.new do |enum|
+        inner_walk(root, topdown=true, followlinks=false) do |dir_data|
+          enum << dir_data
+        end
+      end      
     end
+
   end
 
-  def self.inner_walk(enum, root, topdown=true, followlinks=false)
+  def self.inner_walk(root, topdown=true, followlinks=false, &block)
 
     dirs = []
     files = []
@@ -34,13 +42,13 @@ module Walk
 
     end
 
-    enum << [root, dirs, files] if topdown
+    yield [root, dirs, files] if topdown
 
     path_to_explore.each do |fullpath|
-      inner_walk(enum, fullpath, topdown, followlinks)
+      inner_walk(fullpath, topdown, followlinks, &block)
     end
 
-    enum << [root, dirs, files] unless topdown
+    yield [root, dirs, files] unless topdown
 
   end
 
