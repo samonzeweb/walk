@@ -2,6 +2,9 @@ require "walk/version"
 
 module Walk
 
+  CURRENT_DIR = '.'
+  PARENT_DIR  = '..'
+
   def self.walk(root, topdown=true, followlinks=false)
     Enumerator.new do |enum|
       inner_walk(enum, root, topdown=true, followlinks=false)
@@ -16,7 +19,7 @@ module Walk
 
     Dir.entries(root).each do |entry|
       
-      next if entry=='.' or entry=='..'
+      next if entry==CURRENT_DIR or entry==PARENT_DIR
 
       fullpath = File.join(root, entry)
       if File.file?(fullpath)
