@@ -3,7 +3,16 @@ require 'walk'
 
 describe Walk do
 
-  it 'should find all files in directory tree'
+  before :each do
+    @test_path = create_test_tree
+  end
+
+  after :each do
+    remove_test_tree @test_path
+  end
+
+  it 'should find all files in directory tree' do
+  end
 
   it 'should find all directories in directory tree'
 
