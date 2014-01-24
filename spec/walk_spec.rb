@@ -32,11 +32,19 @@ describe Walk do
   end
 
   it 'should give same result with enumerator than with block style' do
-    files_count = Walk.walk(@test_path).map { |p,d,f| f.length}.reduce(:+)
+    files_count = Walk.walk(@test_path).map { |_,_,f| f.length}.reduce(:+)
     expect(files_count).to be == 4
   end  
 
-  it 'should return content from top to bottom by default'
+  it 'should return content from top to bottom by default' do
+    path_order = Walk.walk(@test_path).map { |path,_,_| File.basename(path) }
+    expect(path_order).to be == [File.basename(@test_path), 'subdir_1', 'subdir_2']
+  end
+
+  it 'should return content from bottom to top if speficied' do
+    path_order = Walk.walk(@test_path, false).map { |path,_,_| File.basename(path) }
+    expect(path_order).to be == ['subdir_1', 'subdir_2', File.basename(@test_path)]
+  end  
 
   it 'should not explore symlink by default'
 

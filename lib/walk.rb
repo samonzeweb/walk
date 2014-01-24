@@ -8,10 +8,10 @@ module Walk
   def self.walk(root, topdown=true, followlinks=false, &block)
 
     if block_given?
-      inner_walk(root, topdown=true, followlinks=false, &block)
+      inner_walk(root, topdown, followlinks, &block)
     else
       Enumerator.new do |enum|
-        inner_walk(root, topdown=true, followlinks=false) do |path, dirs, files|
+        inner_walk(root, topdown, followlinks) do |path, dirs, files|
           enum << [path, dirs, files]
         end
       end      
@@ -19,7 +19,7 @@ module Walk
 
   end
 
-  def self.inner_walk(root, topdown=true, followlinks=false, &block)
+  def self.inner_walk(root, topdown, followlinks, &block)
 
     dirs = []
     files = []
