@@ -46,9 +46,21 @@ describe Walk do
     expect(path_order).to be == ['subdir_1', 'subdir_2', File.basename(@test_path)]
   end  
 
-  it 'should not explore symlink by default'
+  it 'should not explore symlink by default' do
+    add_simlink(@test_path)
+    simlink_found = Walk.walk(@test_path).detect do |path,_,_|
+      File.basename(path) == 'symlink'
+    end
+    expect(simlink_found).to be_nil
+  end
 
-  it 'should explore symlink if needed'
+  it 'should explore symlink if needed' do
+    add_simlink(@test_path)
+    simlink_found = Walk.walk(@test_path, true, true).detect do |path,_,_|
+      File.basename(path) == 'symlink'
+    end
+    expect(simlink_found).not_to be_nil 
+  end
 
   it 'should ignore disapearing entries'
 

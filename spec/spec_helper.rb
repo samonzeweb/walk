@@ -21,12 +21,14 @@ def create_test_tree
   tmpdir
 end
 
-
 def remove_test_tree(path)
   must_begin_with = Dir.tmpdir + File::SEPARATOR
   raise "Path not in temporary directory !" unless path.index(must_begin_with) == 0
   FileUtils.rm_r(path)
 end
 
+def add_simlink(path)
+  File.symlink File.join(path, 'subdir_2'), File.join(path, 'symlink')
+end
 
 
