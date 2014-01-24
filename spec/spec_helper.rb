@@ -7,7 +7,17 @@ end
 
 def create_test_tree
   tmpdir = Dir.mktmpdir
-  # TODO : build a tree with subdirs, files and symlink
+  FileUtils.touch File.join(tmpdir, "dummy.txt")
+
+  subdir_1 = File.join(tmpdir, 'subdir_1')
+  Dir.mkdir(subdir_1)
+  FileUtils.touch File.join(subdir_1, "dummy_1.txt")
+  FileUtils.touch File.join(subdir_1, "dummy_2.txt")
+
+  subdir_2 = File.join(tmpdir, 'subdir_2')
+  Dir.mkdir(subdir_2)
+  FileUtils.touch File.join(subdir_1, "dummy.txt")
+
   tmpdir
 end
 

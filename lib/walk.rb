@@ -11,8 +11,8 @@ module Walk
       inner_walk(root, topdown=true, followlinks=false, &block)
     else
       Enumerator.new do |enum|
-        inner_walk(root, topdown=true, followlinks=false) do |dir_data|
-          enum << dir_data
+        inner_walk(root, topdown=true, followlinks=false) do |path, dirs, files|
+          enum << [path, dirs, files]
         end
       end      
     end
@@ -42,13 +42,13 @@ module Walk
 
     end
 
-    yield [root, dirs, files] if topdown
+    yield  root, dirs, files  if topdown
 
     path_to_explore.each do |fullpath|
       inner_walk(fullpath, topdown, followlinks, &block)
     end
 
-    yield [root, dirs, files] unless topdown
+    yield  root, dirs, files  unless topdown
 
   end
 
