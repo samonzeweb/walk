@@ -42,7 +42,7 @@ module Walk
 
       end        
     rescue Errno::ENOENT => e
-      # current dir disapeared since parent scan, it's not an error
+      # current dir disappeared since parent scan, it's not an error
       return
     end
 
