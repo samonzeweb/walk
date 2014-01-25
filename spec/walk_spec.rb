@@ -62,6 +62,14 @@ describe Walk do
     expect(simlink_found).not_to be_nil 
   end
 
-  it 'should ignore disapearing entries'
+  it 'should ignore disapearing entries' do
+    expect {
+      Walk.walk(@test_path) do |path, subdirs, files|
+        if path == @test_path
+          remove_test_tree File.join(@test_path, 'subdir_2')
+        end
+      end
+    }.not_to raise_error()  
+  end
 
 end
