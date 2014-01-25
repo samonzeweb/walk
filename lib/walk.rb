@@ -8,7 +8,7 @@ module Walk
   PARENT_DIR  = '..'
 
 
-  def self.walk(root, topdown=true, followlinks=false, &block)
+  def self.walk(root, topdown: true, followlinks: false, &block)
 
     if block_given?
       inner_walk(root, topdown, followlinks, &block)

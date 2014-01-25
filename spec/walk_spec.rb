@@ -42,7 +42,7 @@ describe Walk do
   end
 
   it 'should return content from bottom to top if speficied' do
-    path_order = Walk.walk(@test_path, false).map { |path,_,_| File.basename(path) }
+    path_order = Walk.walk(@test_path, topdown: false).map { |path,_,_| File.basename(path) }
     expect(path_order).to be == ['subdir_1', 'subdir_2', File.basename(@test_path)]
   end  
 
@@ -56,7 +56,7 @@ describe Walk do
 
   it 'should explore symlink if needed' do
     add_simlink(@test_path)
-    simlink_found = Walk.walk(@test_path, true, true).detect do |path,_,_|
+    simlink_found = Walk.walk(@test_path, followlinks: true).detect do |path,_,_|
       File.basename(path) == 'symlink'
     end
     expect(simlink_found).not_to be_nil 
