@@ -6,7 +6,7 @@ require 'walk/version'
 Gem::Specification.new do |spec|
   spec.name          = "walk"
   spec.version       = Walk::VERSION
-  spec.authors       = ["samonzeweb"]
+  spec.authors       = ["Samuel GAY"]
   spec.email         = ["sam.onzeweb@gmail.com"]
   spec.summary       = 'Directory tree traversal tool inspired by python os.walk'
   spec.homepage      = ""

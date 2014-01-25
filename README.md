@@ -4,19 +4,7 @@ Walk is a simple tool to explore a directory tree, inspired by [python os.walk][
 
 During the exploration, it don't go down into unreadable directories, and ignore content which have disappeared.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'walk'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install walk
+Unlike python walk, there is no error callback (now).
 
 ## Usage
 
@@ -30,6 +18,8 @@ The Walk.walk function require at least the root of the tree to explore. It can 
 
 Without a block, Walk.walk return an enumerator :
 
+    require 'walk'
+    
     # Directories containing a least 10 files
     puts Walk.walk('/')
       .select { |path,dirs,files| files.length>=10 }
@@ -40,6 +30,8 @@ Optional (keywords) arguments are :
  - topdown : when true (default) the content is returned from top to bottom during tree exploration. When topdown is false, the content is returned beginning with the bottom.
  - followlinks : when false (default) it doesn't explore subdirectories which are symbolic links. When followlinks is true, it can produce an infinite loop in some cases.
 
+## Licence
 
+Walk is released under the MIT license. See LICENSE.txt file for details.
 
   [1]: http://docs.python.org/3.3/library/os.html#os.walk
